@@ -10,3 +10,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+html, body, #root { height: 100%; margin: 0; }
+.map-container { width: 100%; height: 100dvh; } /* usa dvh; fallback sotto */
+@supports not (height: 100dvh) {
+  .map-container { height: 100vh; }
+}

@@ -1,27 +1,31 @@
-// src/components/MapComponent.jsx
+import { useRef } from 'react';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import { useMapLibre } from '../hooks/useMapLibre';
 
-import React, { useEffect, useRef } from "react";
-import maplibregl from "maplibre-gl";
-import "maplibre-gl/dist/maplibre-gl.css";
+const key = import.meta.env.VITE_MAPTILER_KEY;
+const styleUrl = key
+  ? `https://api.maptiler.com/maps/streets-v2/style.json?key=${key}`
+  : 'https://demotiles.maplibre.org/style.json';
 
-const MapComponent = () => {
-  const mapContainer = useRef(null);
+export default function MapComponent() {
+  const ref = useRef(null);
+  const { ready } = useMapLibre({
+    containerRef: ref,
+    style: styleUrl,
+    onLoad: (map) => {
+      // Esempio: aggiungi qui sources/layers/event listeners in un unico posto
+      // map.addSource(...); map.addLayer(...);
+    },
+    onError: (e) => console.warn('[Map error]', e)
+  });
 
-  useEffect(() => {
-    const map = new maplibregl.Map({
-      container: mapContainer.current,
-      style: "https://api.maptiler.com/maps/streets/style.json?key=6S7apkZA3NMOLCjwLecC", // Map style URL
-      center: [7.6869, 45.0703], // Longitude, Latitude (example: Torino)
-      zoom: 13,
-    });
-
-    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-left');
-    map.addControl(new maplibregl.FullscreenControl(), 'top-left');
-
-    return () => map.remove(); // Cleanup on unmount
-  }, []);
-
-  return <div ref={mapContainer} style={{ width: "100vw", height: "100vh" }} />;
-};
-
-export default MapComponent;
+  return (
+    <div className="map-container" style={{ position:'relative' }}>
+      <div ref={ref} style={{ width:'100%', height:'100%' }} />
+      {!ready && <div style={{
+        position:'absolute', inset:0, display:'grid', placeItems:'center',
+        pointerEvents:'none', fontFamily:'system-ui', fontSize:14
+      }}>Caricamento mappa…</div>}
+    </div>
+  );
+}
