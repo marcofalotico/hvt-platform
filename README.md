@@ -7,9 +7,10 @@ npm install
 npm run dev
 ```
 
-Nota: dovrebbe già essere installata 
+Nota: dovrebbe già essere installato maplibre e bootstrap, altrimenti
 ```bash
 npm install maplibre-gl
+npm i react-bootstrap bootstrap @popperjs/core
 ```
 
 ## ⚙️ Installazione locale
