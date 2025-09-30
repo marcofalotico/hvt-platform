@@ -1,3 +1,5 @@
+// src/components/MapComponent.jsx
+
 import { useRef } from 'react';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useMapLibre } from '../hooks/useMapLibre';
