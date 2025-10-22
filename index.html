@@ -1,15 +1,50 @@
-<!-- index.html -->
-
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="it">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HVT</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WEBGIS Template</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+    <!-- MapLibre CSS -->
+    <link
+      href="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <!-- MapTiler Geocoding Control (nuova versione corretta) -->
+    <link
+      href="https://unpkg.com/@maptiler/geocoding-control@2.2.3/style.css"
+      rel="stylesheet"
+    />
+    <!-- CSS personalizzato -->
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <!-- Contenitore mappa -->
+    <div id="map"></div>
+    <!-- Switcher mappa -->
+    <div class="style-switcher">
+      <label for="basemapSelect">Basemap:</label>
+      <select id="basemapSelect">
+        <option
+          value="https://api.maptiler.com/maps/satellite/style.json?key=6S7apkZA3NMOLCjwLecC"
+        >
+          Satellite
+        </option>
+        <option
+          value="https://api.maptiler.com/maps/streets-v2/style.json?key=6S7apkZA3NMOLCjwLecC"
+        >
+          Streets
+        </option>
+        <!-- <option value="https://api.maptiler.com/maps/outdoor-v2/style.json?key=6S7apkZA3NMOLCjwLecC">Outdoor</option> <option value="https://api.maptiler.com/maps/toner-v2/style.json?key=6S7apkZA3NMOLCjwLecC">Toner</option> -->
+      </select>
+    </div>
+    <!-- Librerie -->
+    <script src="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/@maptiler/geocoding-control@2.2.3/dist/maptiler-geocoding-control.umd.js"></script>
+    <!-- Config privata -->
+    <script src="js/config.js"></script>
+    <!-- Script principale -->
+    <script src="js/app.js" type="module"></script>
+    <script type="module" src="js/ui.js"></script>
   </body>
 </html>
