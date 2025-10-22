@@ -1,74 +1,136 @@
-:root {
-  --bg: #0f1115;
+:root{
+  --bg: #f5f7fb;
+  --card-bg: rgba(255,255,255,.92);
+  --radius: 14px;
+  --shadow: 0 8px 28px rgba(0,0,0,.18);
+  --left-ui: 16px;
+  --top-ui: 16px;
 }
-html,
-body {
-  height: 100%;
-  margin: 0;
+
+/* Layout base */
+html, body { height:100%; margin:0; padding:0; background:var(--bg); }
+#map { width:100%; height:100%; }
+
+/* Z-index per overlay UI */
+.top-left-ui, .top-right-logo, .style-switcher, .bottom-banner { z-index: 10; }
+
+/* --------- Brand pill (HVT – GIS) --------- */
+.brand-pill{
+  background:#fff;
+  border-radius: 999px;
+  padding: .5rem .8rem;
+  box-shadow: var(--shadow);
+  line-height: 1;
+  user-select: none;
+}
+
+/* --------- Hamburger circolare --------- */
+.btn-circle{
+  width:40px; height:40px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* --- aspetto circolare bianco + ombra --- */
+.hamburger {
+  width: 40px;
+  height: 40px;
   padding: 0;
-  background: var(--bg);
-}
-#map {
-  width: 100%;
-  height: 100%;
-} /* Controlli MapLibre */
-.maplibregl-ctrl-group {
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
-  border-radius: 6px;
-  overflow: hidden;
-} /* switcher basemap */ /*layerSwitcherControl*/
-.maplibregl-ctrl-basemaps {
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow);
   display: flex;
-  flex-direction: row;
-  pointer-events: auto;
-  bottom: 15px;
-  position: relative;
+  align-items: center;
+  justify-content: center;
 }
-.maplibregl-ctrl-basemaps.reverse {
-  flex-direction: row-reverse;
+
+/* dimensioni ridotte per il box interno (più piccolo = linee più corte) */
+.hamburger-box {
+  width: 16px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.maplibregl-ctrl-basemaps.column {
+
+/* linee più sottili e corte */
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  background-color: #000;
+  height: 2px;
+  width: 16px;
+  border-radius: 2px;
+}
+
+/* micro-centratura verticale */
+.hamburger-inner::before {
+  top: -5px;
+}
+.hamburger-inner::after {
+  bottom: -5px;
+}
+
+/* --------- Posizionamenti --------- */
+.top-left-ui{ top:var(--top-ui); left:var(--left-ui); }
+.top-right-logo{ top:var(--top-ui); right:var(--left-ui); background:#fff; border-radius: 12px; padding:6px; }
+.top-right-logo img{ width: 140px; height:auto; display:block; }
+
+/* Right dock placeholder (nascosto per ora) */
+.right-dock{ position:absolute; right:0; top:0; height:100%; width:340px; background:#fff; }
+
+/* --------- Dropdown icone toolbar --------- */
+.tools-toolbar .tool-btn{
+  width:40px; height:40px; border-radius:50%; 
+  display:inline-flex; align-items:center; justify-content:center;
+  background:#fff; border:0; box-shadow: var(--shadow);
+}
+.tools-toolbar .dropdown-menu{
+  border:0; padding:0; background:transparent;
+}
+.dropdown-card{
+  width: 320px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.dropdown-card .card-header{
+  background: transparent;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+/* --------- Style switcher (in basso a destra) --------- */
+.card-translucent{ background: var(--card-bg); border: 0; border-radius: var(--radius); }
+.style-switcher{
+  position:absolute; right:20px; bottom:80px;
+  box-shadow: var(--shadow);
+}
+
+/* --------- Bottom banner (centrato) --------- */
+.bottom-banner{
+  position: absolute; left:50%; bottom:18px; transform: translateX(-50%);
+  min-width: 520px;
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+}
+
+/* --------- Ritocchi controlli MapLibre --------- */
+.maplibregl-ctrl-top-left {
+  top: calc(40px + var(--top-ui)) !important;
+  left: var(--left-ui) !important;
+  display: flex;
   flex-direction: column;
 }
-.maplibregl-ctrl-basemaps.column.reverse {
-  flex-direction: column-reverse;
-}
-.maplibregl-ctrl-basemaps .basemap {
-  width: 64px;
-  height: 64px;
-  margin: 2px;
-  border: 2px solid #ccc;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
-  cursor: pointer;
-}
-.maplibregl-ctrl-basemaps .basemap.active {
-  border-color: orange;
-  box-shadow: 2px 2px 4px #000;
-}
-.maplibregl-ctrl-basemaps.closed .basemap {
-  display: none;
-}
-.maplibregl-ctrl-basemaps.closed .basemap.active {
-  display: block;
-  border: 2px solid #ccc;
-}
-.style-switcher {
-  position: absolute;
-  bottom: 7vh;
-  right: 20px;
-  background: #2c2c2c;
-  color: #f0f0f0;
+.maplibregl-ctrl-group {
+  box-shadow: var(--shadow);
   border-radius: 10px;
-  padding: 10px 14px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  font-size: 14px;
-  z-index: 1;
-  transition: all 0.3s ease;
+  padding: 1px;
+  background: #fff;
 }
-.style-switcher select {
-  background: #1e1e1e;
-  color: #f0f0f0;
-  border: 1px solid #444;
-  padding: 6px;
-  border-radius: 6px;
+
+/* --------- Responsive --------- */
+@media (max-width: 768px){
+  .top-right-logo img{ width:110px; }
+  .bottom-banner{ min-width: unset; }
 }
